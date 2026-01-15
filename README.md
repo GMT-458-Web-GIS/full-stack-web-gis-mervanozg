@@ -27,7 +27,7 @@
 
 ---
 
-Privacy Notice: Due to the proprietary nature of the business logic, only selected modules of the source code are shared in this repository.
+!!Gizlilik Bildirimi: İş mantığının tescilli niteliği nedeniyle, kaynak kodunun yalnızca seçilmiş modülleri bu repoda paylaşılmaktadır.Tüm kodlar için: mervanozgonul@gmail.com
 
 ## 🚀 Proje Hakkında
 
