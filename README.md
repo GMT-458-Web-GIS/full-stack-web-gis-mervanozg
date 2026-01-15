@@ -141,7 +141,7 @@ Son kullanıcının rezervasyon yaptığı modern ön yüz.
 
 ### 5. API Development (25%)
 - [x] **Implemented.**
-    - **Swagger UI:** Automated API documentation available at `/api-docs`.
+    - **Swagger UI:** Automated API documentation available at `[/api-docs](http://localhost:5000/api-docs)`.
     - **Postman:** Verified with a comprehensive test suite.
     - **Endpoints:** Includes spatial (venue locations) and non-spatial resources.
 
