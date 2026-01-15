@@ -6,6 +6,8 @@
 
 ## Live: http://13.60.187.41/
 
+ Presentation: https://www.canva.com/design/DAG-gYmVLoQ/SJXe9scRjZ0k5S-uEhq8aA/edit?utm_content=DAG-gYmVLoQ&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton
+
 <p align="center">
   <strong>A high-security SaaS reservation platform designed for luxury venues and events, based on visual map interaction.</strong>
 </p>
