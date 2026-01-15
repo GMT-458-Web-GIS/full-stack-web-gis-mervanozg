@@ -7,7 +7,7 @@
 ## Live: http://13.60.187.41/
 
 <p align="center">
-  <strong>Görsel harita tabanlı, lüks mekanlar ve etkinlikler için tasarlanmış, yüksek güvenlikli SaaS rezervasyon platformu.</strong>
+  <strong>A high-security SaaS reservation platform designed for luxury venues and events, based on visual map interaction.</strong>
 </p>
 
 <p align="center">
@@ -27,91 +27,133 @@
 
 ---
 
-!!Gizlilik Bildirimi: İş mantığının tescilli niteliği nedeniyle, kaynak kodunun yalnızca seçilmiş modülleri bu repoda paylaşılmaktadır.Tüm kodlar için: mervanozgonul@gmail.com
+!!Privacy Notice: Due to the proprietary nature of the business logic, only selected modules of the source code are shared in this repository. For full access: mervanozgonul@gmail.com
 
-## 🚀 Proje Hakkında
+## 🚀 About the Project
 
-**REZIT**, standart rezervasyon formlarının ötesine geçen, mekan sahiplerinin müşterilerine **görsel harita üzerinden** interaktif masa/koltuk seçimi sunmasını sağlayan gelişmiş bir rezervasyon platformudur.
+**REZIT** is an advanced reservation platform that goes beyond standard reservation forms by enabling venue owners to offer their customers **interactive table/seat selection via a visual map**.
 
-Proje, birden fazla mekanı (multi-tenant) tek bir sistem üzerinden yönetebilen bir **Hizmet Olarak Yazılım (SaaS)** mimarisine sahiptir. **Inventory Hoarding** (Stok Tüketme) saldırılarına karşı IP bazlı koruma, **Rate Limiting** ve **Sunucu Taraflı Doğrulama** gibi endüstri standardı güvenlik önlemleriyle donatılmıştır.
+The project has a **Software as a Service (SaaS)** architecture capable of managing multiple venues (multi-tenant) within a single system. It is equipped with industry-standard security measures such as IP-based protection against **Inventory Hoarding** attacks, **Rate Limiting**, and **Server-Side Validation**.
 
-## ✨ Ana Özellikler
+## ✨ Key Features
 
-* 🗺️ **İnteraktif Görsel Harita:** Müşteriler, mekanın kuşbakışı planı üzerinden istedikleri masayı/koltuğu seçebilir.
-* 🛡️ **Gelişmiş Güvenlik Kalkanı:**
-    * **Anti-Hoarding:** IP bazlı kota sistemi ile kötü niyetli kullanıcıların tüm salonu kilitlemesi engellenir.
-    * **Rate Limiting:** Bot ve Brute-Force saldırılarına karşı API istek hız sınırlandırması.
-    * **Secure Validation:** Sunucu taraflı sıkı veri doğrulama (`express-validator`).
-    * **Nonce & JWT:** Replay saldırılarına karşı `Nonce` ve rol bazlı `JWT` yetkilendirme.
-* ⚡ **Anlık Güncellemeler:** Rezervasyon iptal edildiğinde veya yapıldığında, Admin ve Müşteri panelleri senkronize olarak güncellenir.
-* 🏢 **SaaS & Multi-Tenant:** Tek bir kurulumla sınırsız sayıda mekanı ve her mekanın kendi verilerini izole şekilde yönetir.
-* 🎟️ **Esnek Rezervasyon Modu:**
-    * **Etkinlik Modu:** Konser, Tiyatro gibi tarih ve saatli etkinlikler.
-    * **Slot Modu:** Restoran, Meyhane gibi günlük zaman dilimli rezervasyonlar.
-* 🌐 **i18n Desteği:** Tamamen yerelleştirilebilir (Türkçe/İngilizce) altyapı.
-* 📱 **Responsive Tasarım:** Mobil ve masaüstü cihazlarda kusursuz deneyim.
+* 🗺️ **Interactive Visual Map:** Customers can select their desired table/seat from a top-down venue layout.
+* 🛡️ **Advanced Security Shield:**
+    * **Anti-Hoarding:** IP-based quota system prevents malicious users from locking the entire venue.
+    * **Rate Limiting:** API request throttling against bots and brute-force attacks.
+    * **Secure Validation:** Strict server-side data validation (`express-validator`).
+    * **Nonce & JWT:** `Nonce` and role-based `JWT` authorization to prevent replay attacks.
+* ⚡ **Real-Time Updates:** When a reservation is created or canceled, Admin and Customer panels are updated synchronously.
+* 🏢 **SaaS & Multi-Tenant:** Manage unlimited venues with isolated data per venue under a single installation.
+* 🎟️ **Flexible Reservation Modes:**
+    * **Event Mode:** Date- and time-based events such as concerts and theaters.
+    * **Slot Mode:** Daily time-slot reservations for restaurants, taverns, etc.
+* 🌐 **i18n Support:** Fully localizable infrastructure (Turkish/English).
+* 📱 **Responsive Design:** Seamless experience on mobile and desktop devices.
 
 ---
 
-## 🏗️ Sistem Mimarisi: 3 Katmanlı Panel
+## 🏗️ System Architecture: 3-Tier Panel Structure
 
-Sistem, kullanıcı rollerine göre ayrılmış üç ana Single Page Application (SPA) içerir:
+The system consists of three main Single Page Applications (SPAs), separated by user roles:
 
-### 1. 👨‍💻 Süper Admin (Mervan Paneli)
-Platform sahibinin tüm ekosistemi yönettiği "Süper Yönetici Modu".
-* Yeni mekanlar oluşturma ve listeleme.
-* **Harita Editörü:** Mekan krokisini yükleyip üzerine tıklayarak interaktif koltuklar yerleştirme.
-* Kategori ve fiyatlandırma şablonları oluşturma.
-* Şifreli (`bcrypt`) API anahtarları üretme.
+### 1. 👨‍💻 Super Admin (Mervan Panel)
+The “Super Administrator Mode” where the platform owner manages the entire ecosystem.
+* Create and list new venues.
+* **Map Editor:** Upload venue layouts and place interactive seats by clicking on the map.
+* Create category and pricing templates.
+* Generate encrypted (`bcrypt`) API keys.
 
- <p align="center">
+<p align="center">
   <img src="super_admin.png" alt="Super Admin Panel" width="90%" style="border-radius: 8px; border: 1px solid #333;" />
 </p>
 
-### 2. 👔 Mekan Yöneticisi (Admin Paneli)
-İşletme sahibinin kendi mekanını yönettiği panel.
-* **Canlı Dashboard:** Doluluk oranlarını ve anlık rezervasyonları canlı izleme.
-* **Rezervasyon Yönetimi:** Gelen talepleri onaylama, iptal etme veya düzenleme.
-* **Etkinlik & Fiyatlandırma:** Konser oluşturma veya masa fiyatlarını anlık değiştirme.
+### 2. 👔 Venue Manager (Admin Panel)
+The panel where business owners manage their own venues.
+* **Live Dashboard:** Monitor occupancy rates and real-time reservations.
+* **Reservation Management:** Approve, cancel, or edit incoming requests.
+* **Event & Pricing:** Create concerts or update table prices in real time.
 
-  <p align="center">
+<p align="center">
   <img src="admin.png" alt="Venue Manager Panel" width="90%" style="border-radius: 8px; border: 1px solid #333;" />
 </p>
 
-### 3. 🎟️ Müşteri Arayüzü (Rezervasyon Paneli)
-Son kullanıcının rezervasyon yaptığı modern ön yüz.
-* Görsel haritadan yer seçimi.
-* Güvenli ve hatasız (Input Masking) form girişi.
-* "Rezervasyonlarım" ekranından sorgulama ve iptal işlemleri.
+### 3. 🎟️ Customer Interface (Reservation Panel)
+A modern front-end where end users make reservations.
+* Seat selection from a visual map.
+* Secure and error-free form input (Input Masking).
+* View and cancel reservations via the “My Reservations” screen.
 
-  <p align="center">
+<p align="center">
   <img src="customer.png" alt="Customer Reservation Interface" width="90%" style="border-radius: 8px; border: 1px solid #333;" />
 </p>
 
 ---
 
-## 🛠️ Teknoloji Yığını
+## 🛠️ Technology Stack
 
-| Alan | Teknoloji | Açıklama |
+| Area | Technology | Description |
 | :--- | :--- | :--- |
-| **Frontend** | **React 19** | Modern Hooks ve Component yapısı. |
-| **Build Tool** | **Vite** | Hızlı geliştirme ve optimize edilmiş üretim (build) süreçleri. |
-| **Backend** | **Node.js & Express 5** | Performanslı ve ölçeklenebilir REST API. |
-| **Veritabanı** | **PostgreSQL** | `pg` modülü ile bağlantı havuzu (pooling) ve transaction yönetimi. |
-| **Güvenlik** | **Rate Limit & Helmet** | DDOS ve Brute-Force koruması. |
-| **Validasyon** | **Express-Validator** | Sunucu taraflı veri bütünlüğü kontrolü. |
-| **Dosya Yönetimi** | **Multer** | Mekan haritaları ve görselleri için. |
-| **Test** | **Jest & Supertest** | API endpoint'leri için kapsamlı testler. |
+| **Frontend** | **React 19** | Modern Hooks and component-based architecture. |
+| **Build Tool** | **Vite** | Fast development and optimized production builds. |
+| **Backend** | **Node.js & Express 5** | High-performance and scalable REST API. |
+| **Database** | **PostgreSQL** | Connection pooling (`pg`) and transaction management. |
+| **Security** | **Rate Limit & Helmet** | DDOS and brute-force protection. |
+| **Validation** | **Express-Validator** | Server-side data integrity checks. |
+| **File Management** | **Multer** | For venue maps and image uploads. |
+| **Testing** | **Jest & Supertest** | Comprehensive testing for API endpoints. |
 
-## 🔒 Güvenlik Notları
+## 🛡️ Security 
 
-* **API Anahtarları:** Veritabanında asla düz metin olarak saklanmaz, `bcrypt` ile hashlenir.
-* **Transaction:** Rezervasyon işlemleri (Müşteri oluşturma, Koltuk kilitleme, Ödeme kaydı) tek bir veritabanı transaction'ı (ACID) içinde gerçekleşir.
-* **Input Validation:** Kullanıcıdan gelen tüm veriler (Email formatı, Telefon uzunluğu, Kişi sayısı) sunucu tarafında doğrulanır.
+REZIT applies multiple layered security mechanisms at the HTTP, API, and application levels to ensure data integrity and system resilience.
+
+### 🧱 Helmet (HTTP Security Headers)
+`helmet` is used to automatically set secure HTTP headers, protecting the application against common web vulnerabilities:
+- **XSS (Cross-Site Scripting)** attacks
+- **Clickjacking** via `X-Frame-Options`
+- **MIME-type sniffing** via `X-Content-Type-Options`
+- **Information leakage** by hiding server technology details
+
+This significantly strengthens the baseline security of all API responses.
+
+### ✅ Express-Validator (Server-Side Validation)
+`express-validator` ensures that **all incoming client data is validated on the server**, regardless of front-end controls:
+- Email format validation
+- Phone number length and character checks
+- Date, time, and numeric boundary validation
+- Protection against malformed or malicious payloads
+
+Invalid or unsafe requests are rejected **before** reaching business logic or the database layer.
+
+### 🚦 Rate Limiting
+API-level rate limiting is applied to prevent:
+- Brute-force attacks
+- Bot-driven abuse
+- Inventory hoarding attempts
+
+Requests exceeding defined thresholds are automatically blocked or throttled.
+
+### 🔐 JWT, Nonce & Replay Protection
+- **JWT (JSON Web Tokens)** are used for stateless authentication and role-based authorization.
+- **Nonces** are issued per request/session to prevent replay attacks.
+- Tokens are verified on every protected endpoint.
+
+### 🧾 Transactional Integrity (ACID)
+All critical reservation operations are executed inside a **single database transaction**:
+- Customer creation
+- Seat locking
+- Reservation record
+- Payment record
+
+If any step fails, the entire operation is rolled back, ensuring consistency and preventing partial writes.
 
 ---
 
-<p align="center"> © 2025 REZIT. Tüm Hakları Saklıdır. </p>
+> These mechanisms work together to provide **defense-in-depth**, ensuring REZIT remains secure, scalable, and production-ready.
+---
+
+<p align="center"> © 2025 REZIT. All Rights Reserved. </p>
+
 
 ## ✅ Feature Compliance Checklist
 
