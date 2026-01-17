@@ -4,7 +4,8 @@
 
 <h1 align="center">REZIT • Luxury Reservations</h1>
 
-## Live: http://13.60.187.41/
+## Live: https://rezit.app
+lavare admin key= q2aT2mv7kpPaO0lqPxMRIxboHeSWjQaQ9lmmN6IsOb8=
 
  Presentation: https://www.canva.com/design/DAG-gYmVLoQ/SJXe9scRjZ0k5S-uEhq8aA/edit?utm_content=DAG-gYmVLoQ&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton
 
